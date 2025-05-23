@@ -40,3 +40,8 @@ Are currently unknown, but we definitely operate in the sales domain and offer s
 ## Terraform code
 
 Please ignore `tfe_oidc` and `workspaces` folders it is a refined accelerator from another repo to run everything in TFE.
+
+#### Workspaces:
+
+level1 - network infra and db(for simplicity)
+level2 - compute infra
