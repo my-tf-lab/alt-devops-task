@@ -35,3 +35,8 @@ Reference Solution(Diagram 2):
 
 ## Business Drivers
 Are currently unknown, but we definitely operate in the sales domain and offer some kind of payment solution :)
+
+
+## Terraform code
+
+Please ignore `tfe_oidc` and `workspaces` folders it is a refined accelerator from another repo to run everything in TFE.
