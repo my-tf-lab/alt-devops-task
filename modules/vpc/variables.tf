@@ -58,3 +58,8 @@ variable "nacl_enabled" {
   type        = bool
   default     = false
 }
+
+variable "home_ip_cidr" {
+  description = "CIDR block for my home IP"
+  type        = string
+}

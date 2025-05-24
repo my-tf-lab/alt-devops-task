@@ -27,5 +27,6 @@ module "vpc" {
   nacl_enabled     = true
   bastion_az       = 0
   allowed_domains  = var.allowed_domains
+  home_ip_cidr     = "80.238.119.82/32"
   tags             = local.tags
 }
