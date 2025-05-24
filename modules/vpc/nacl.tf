@@ -124,6 +124,29 @@ resource "aws_network_acl_rule" "dns_in_tcp_private" {
   to_port       = 53
 }
 
+resource "aws_network_acl_rule" "private_in_http" {
+  network_acl_id = aws_network_acl.private.id
+  rule_number    = 150
+  protocol       = "6"  # TCP
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.main_vpc_cidr
+  from_port      = 80
+  to_port        = 80
+}
+
+resource "aws_network_acl_rule" "private_in_https" {
+  network_acl_id = aws_network_acl.private.id
+  rule_number    = 160
+  protocol       = "6"  # TCP
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.main_vpc_cidr
+  from_port      = 443
+  to_port        = 443
+}
+
+
 resource "aws_network_acl_association" "public" {
   for_each = var.nacl_enabled ? aws_subnet.public : {}
 
