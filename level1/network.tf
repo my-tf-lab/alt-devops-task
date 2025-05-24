@@ -24,6 +24,7 @@ module "vpc" {
 
   nat_gw_enabled   = false
   firewall_enabled = false
+  nacl_enabled     = true
   bastion_az       = 0
   allowed_domains  = var.allowed_domains
   tags             = local.tags

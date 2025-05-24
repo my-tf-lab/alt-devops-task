@@ -123,3 +123,17 @@ resource "aws_network_acl_rule" "dns_in_tcp_private" {
   from_port     = 53
   to_port       = 53
 }
+
+resource "aws_network_acl_association" "public" {
+  for_each = var.nacl_enabled ? aws_subnet.public : {}
+
+  subnet_id      = each.value.id
+  network_acl_id = aws_network_acl.public.id
+}
+
+resource "aws_network_acl_association" "private" {
+  for_each = var.nacl_enabled ? aws_subnet.private : {}
+
+  subnet_id      = each.value.id
+  network_acl_id = aws_network_acl.private.id
+}

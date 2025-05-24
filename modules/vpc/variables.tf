@@ -52,3 +52,9 @@ variable "bastion_az" {
   description = "Availability Zone index for the bastion host"
   type        = number
 }
+
+variable "nacl_enabled" {
+  description = "Enable or disable Network ACL"
+  type        = bool
+  default     = false
+}
