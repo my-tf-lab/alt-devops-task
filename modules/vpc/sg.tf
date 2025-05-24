@@ -153,7 +153,7 @@ resource "aws_security_group_rule" "bastion_ingress_ssh" {
   to_port           = 22
   protocol          = "tcp"
   security_group_id = aws_security_group.bastion.id
-  cidr_blocks       = [var.my_home_ip]
+  cidr_blocks       = [var.home_ip_cidr]
   description       = "SSH from Home"
 }
 
