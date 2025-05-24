@@ -16,7 +16,7 @@ module "vpc" {
   source = "../modules/vpc"
 
   main_vpc_cidr         = var.vpc_cidr_block
-  vpc_name              = "alti"
+  vpc_name              = "alti-${var.env}"
   public_subnet_cidrs   = local.public_subnet_cidrs
   private_subnet_cidrs  = local.private_subnet_cidrs
   db_subnet_cidrs       = local.db_subnet_cidrs
