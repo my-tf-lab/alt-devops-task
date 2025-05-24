@@ -47,3 +47,8 @@ variable "allowed_domains" {
   description = "List of allowed domains"
   type        = list(string)
 }
+
+variable "bastion_az" {
+  description = "Availability Zone index for the bastion host"
+  type        = number
+}
