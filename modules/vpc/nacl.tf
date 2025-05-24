@@ -146,6 +146,16 @@ resource "aws_network_acl_rule" "private_in_https" {
   to_port        = 443
 }
 
+resource "aws_network_acl_rule" "public_in_ssh_from_home" {
+  network_acl_id = aws_network_acl.public.id
+  rule_number    = 200
+  protocol       = "6"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.home_ip_cidr
+  from_port     = 22
+  to_port       = 22
+}
 
 resource "aws_network_acl_association" "public" {
   for_each = var.nacl_enabled ? aws_subnet.public : {}
