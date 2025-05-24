@@ -53,7 +53,7 @@ resource "aws_network_acl_rule" "private_in_mysql" {
   protocol       = "6"
   rule_action   = "allow"
   egress         = false
-  cidr_block     = join(",", values(aws_subnet.private[*].cidr_block))
+  cidr_block     = var.main_vpc_cidr
   from_port     = 3306
   to_port       = 3306
 }
@@ -75,7 +75,7 @@ resource "aws_network_acl_rule" "private_out_ephemeral" {
   protocol       = "6"
   rule_action   = "allow"
   egress         = true
-  cidr_block     = join(",", values(aws_subnet.private[*].cidr_block))
+  cidr_block     = var.main_vpc_cidr
   from_port     = 1024
   to_port       = 65535
 }
