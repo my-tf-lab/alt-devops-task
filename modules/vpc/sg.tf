@@ -5,7 +5,6 @@ resource "aws_security_group" "app" {
   tags        = var.tags
 }
 
-# Ingress: HTTP/HTTPS from internal ALB
 resource "aws_security_group_rule" "app_http_https_from_alb" {
   type                     = "ingress"
   from_port                = 80
@@ -16,7 +15,6 @@ resource "aws_security_group_rule" "app_http_https_from_alb" {
   description              = "HTTP/HTTPS from internal ALB traffic"
 }
 
-# Ingress: SSH from Bastion
 resource "aws_security_group_rule" "app_ssh_from_bastion" {
   type                     = "ingress"
   from_port                = 22
@@ -27,7 +25,6 @@ resource "aws_security_group_rule" "app_ssh_from_bastion" {
   description              = "SSH from Bastion traffic"
 }
 
-# Ingress: Ephemeral from VPC
 resource "aws_security_group_rule" "app_ingress_ephemeral" {
   type              = "ingress"
   from_port         = 1024
@@ -35,10 +32,9 @@ resource "aws_security_group_rule" "app_ingress_ephemeral" {
   protocol          = "tcp"
   security_group_id = aws_security_group.app.id
   cidr_blocks       = [var.main_vpc_cidr]
-  description       = "Ephemeral from VPC traffic"
+  description       = "VPC traffic"
 }
 
-# Egress: All to VPC
 resource "aws_security_group_rule" "app_egress_all" {
   type              = "egress"
   from_port         = 0
@@ -49,15 +45,13 @@ resource "aws_security_group_rule" "app_egress_all" {
   description       = "Allow all outbound traffic"
 }
 
-# 2. RDS Security Group
 resource "aws_security_group" "rds" {
   name        = "rds"
-  description = "RDS SG"
+  description = "RDS traffic"
   vpc_id      = aws_vpc.main.id
   tags        = var.tags
 }
 
-# Ingress: MySQL from App
 resource "aws_security_group_rule" "rds_ingress_from_app" {
   type                     = "ingress"
   from_port                = 3306
@@ -65,10 +59,9 @@ resource "aws_security_group_rule" "rds_ingress_from_app" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.rds.id
   source_security_group_id = aws_security_group.app.id
-  description              = "MySQL from App"
+  description              = "Allow MySQL traffic from App"
 }
 
-# Egress: All in VPC
 resource "aws_security_group_rule" "rds_egress_all" {
   type              = "egress"
   from_port         = 0
@@ -79,15 +72,13 @@ resource "aws_security_group_rule" "rds_egress_all" {
   description       = "Allow all outbound traffic"
 }
 
-# 3. Internal ALB SG
 resource "aws_security_group" "internal_alb" {
   name        = "internal-alb"
-  description = "Internal ALB SG"
+  description = "Internal ALB traffic"
   vpc_id      = aws_vpc.main.id
   tags        = var.tags
 }
 
-# Ingress: 80/443 from Public ALB
 resource "aws_security_group_rule" "internal_alb_ingress_from_public_alb" {
   type                     = "ingress"
   from_port                = 80
@@ -98,7 +89,6 @@ resource "aws_security_group_rule" "internal_alb_ingress_from_public_alb" {
   description              = "Allow traffic from public ALB"
 }
 
-# Egress: To App SG
 resource "aws_security_group_rule" "internal_alb_egress_to_app" {
   type                     = "egress"
   from_port                = 80
@@ -109,15 +99,13 @@ resource "aws_security_group_rule" "internal_alb_egress_to_app" {
   description              = "Allow to App traffic"
 }
 
-# 4. Public ALB SG
 resource "aws_security_group" "public_alb" {
   name        = "public-alb"
-  description = "Public ALB SG"
+  description = "Public ALB traffic"
   vpc_id      = aws_vpc.main.id
   tags        = var.tags
 }
 
-# Ingress: 80/443 from Internet
 resource "aws_security_group_rule" "public_alb_ingress_anywhere" {
   type              = "ingress"
   from_port         = 80
@@ -128,7 +116,6 @@ resource "aws_security_group_rule" "public_alb_ingress_anywhere" {
   description       = "Allow HTTP/HTTPS from internet"
 }
 
-# Egress: To internal ALB
 resource "aws_security_group_rule" "public_alb_egress_to_internal" {
   type                     = "egress"
   from_port                = 80
@@ -136,9 +123,8 @@ resource "aws_security_group_rule" "public_alb_egress_to_internal" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.public_alb.id
   source_security_group_id = aws_security_group.internal_alb.id
-  description              = "LLOW HTTP/HTTPS to internal ALB"
+  description              = "Allow HTTP/HTTPS to internal ALB"
 }
-
 
 resource "aws_security_group" "bastion" {
   name        = "bastion"
@@ -164,5 +150,5 @@ resource "aws_security_group_rule" "bastion_egress_to_app" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.bastion.id
   source_security_group_id = aws_security_group.app.id
-  description              = "SSH to App FROM Bastion"
+  description              = "SSH to App via Bastion"
 }

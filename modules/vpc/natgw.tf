@@ -1,5 +1,5 @@
 resource "aws_eip" "nat" {
-  count = var.nat_gw_enabled ? 1 : 0
+  count  = var.nat_gw_enabled ? 1 : 0
   domain = "vpc"
 }
 
