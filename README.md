@@ -43,5 +43,5 @@ Please ignore `tfe_oidc` and `workspaces` folders it is a refined accelerator fr
 
 #### Workspaces:
 
-level1 - network infra and db(for simplicity)
-level2 - compute infra
+- level1 - network infra 
+- level2 - compute infra and db(for simplicity)
