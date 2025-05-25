@@ -17,7 +17,7 @@ resource "aws_db_instance" "mysql" {
   storage_type            = "gp2"
   username                = data.hcp_vault_secrets_app.demo.secrets["rds_username"]
   password                = data.hcp_vault_secrets_app.demo.secrets["rds_password"]
-  db_name                 = "alti-db"
+  db_name                 = "alti"
   port                    = 3306
   publicly_accessible     = false
   multi_az                = false
