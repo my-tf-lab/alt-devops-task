@@ -1,35 +1,3 @@
-data "aws_vpc" "main" {
-  filter {
-    name   = "tag:Name"
-    values = ["alti-${var.env}"]
-  }
-}
-
-data "aws_subnets" "db" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.main.id]
-  }
-
-  filter {
-    name   = "tag:Name"
-    values = ["db-alti-${var.env}-*"]
-  }
-}
-
-data "aws_security_group" "rds" {
-  filter {
-    name   = "group-name"
-    values = ["rds"]
-  }
-
-  vpc_id = data.aws_vpc.main.id
-}
-
-data "hcp_vault_secrets_app" "web_application" {
-  app_name = "tf-stack-demo"
-}
-
 resource "aws_db_subnet_group" "main" {
   name       = "alti-${var.env}-subnet-group"
   subnet_ids = data.aws_subnets.db.ids
@@ -47,8 +15,8 @@ resource "aws_db_instance" "mysql" {
   instance_class          = "db.t3.micro"
   allocated_storage       = 20
   storage_type            = "gp2"
-  username                = data.hcp_vault_secrets_app.web_application.secrets["rds_username"]
-  password                = data.hcp_vault_secrets_app.web_application.secrets["rds_password"]
+  username                = data.hcp_vault_secrets_app.demo.secrets["rds_username"]
+  password                = data.hcp_vault_secrets_app.demo.secrets["rds_password"]
   db_name                 = "alti-db"
   port                    = 3306
   publicly_accessible     = false
