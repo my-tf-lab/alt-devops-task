@@ -86,7 +86,7 @@ resource "aws_launch_template" "bastion_nodes" {
 
 resource "aws_autoscaling_group" "app" {
 
-  name                = local.bastion_name
+  name                = local.node_name
   max_size            = 5
   min_size            = 1
   desired_capacity    = 1
@@ -113,7 +113,7 @@ resource "aws_autoscaling_group" "app" {
 
 resource "aws_autoscaling_group" "bastion" {
 
-  name                = local.node_name
+  name                = local.bastion_name
   max_size            = 3
   min_size            = 1
   desired_capacity    = 1
