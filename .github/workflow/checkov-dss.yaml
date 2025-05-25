@@ -1,0 +1,22 @@
+name: Checkov PCI DSS Compliance Scan
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  checkov:
+    name: Run Checkov with PCI DSS Framework
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Checkov - PCI DSS Only
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform
+          check: CKV_PCI_*
