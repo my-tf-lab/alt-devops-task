@@ -1,6 +1,6 @@
 locals {
   workspaces = {
-    "level1-use1-dev" : "main",
-    "level2-use1-dev" : "main",
+    "level1-dev-use1" : "main",
+    "level2-dev-use1" : "main",
   }
 }

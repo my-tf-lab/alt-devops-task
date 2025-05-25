@@ -19,13 +19,17 @@ For the database engine, I recommend using Amazon RDS, as it is a more reliable 
 
 For the network design, we need to plan the IP address space in advance. Taking into account the current configuration and potential growth, I have chosen the following address allocation:
 
-    VPC CIDR: 10.10.20.0/16
+    VPC CIDR: 10.10.0.0/16
 
         3 public subnets → /24 (3×256 IPs)
 
         3 private subnets → /20 (3×4096 IPs)
 
         3 database subnets → /24 (3×256 IPs)
+
+        3 firewall subnets → /25 (3×16 IPs)
+
+Application will be accessed behind ALB chain: Public ALB pointing to Internal ALB. Outgress will be controlled by AWS Network GS and NAT GW.
 
 The entire solution must be implemented as code using Terraform.
 
