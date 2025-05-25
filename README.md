@@ -1,5 +1,7 @@
 # alt-devops-task
-Devops Task 00000010 
+Devops Task 00000010
+
+[![Checkov PCI DSS Compliance Scan](https://github.com/my-tf-lab/alt-devops-task/actions/workflows/checkov-dss.yaml/badge.svg)](https://github.com/my-tf-lab/alt-devops-task/actions/workflows/checkov-dss.yaml)
 
 ## Context
 There is an environment that was created manually, which needs to undergo a PCI DSS audit.
