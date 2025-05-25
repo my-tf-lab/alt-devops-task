@@ -109,7 +109,7 @@ resource "aws_autoscaling_group" "bastion" {
   min_size            = 1
   desired_capacity    = 1
   force_delete        = true
-  vpc_zone_identifier = [data.aws_subnets.bastion.ids]
+  vpc_zone_identifier = [data.aws_subnets.public.ids]
 
   launch_template {
     id      = aws_launch_template.bastion_nodes.id
