@@ -38,6 +38,13 @@ resource "aws_launch_template" "worker_nodes" {
 EOF
   )
 
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+    instance_metadata_tags      = "enabled"
+  }
+
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {
@@ -64,6 +71,13 @@ resource "aws_launch_template" "bastion_nodes" {
   description   = "Alti DevOps task bastion launch template"
   instance_type = "t3.micro"
   image_id      =  data.aws_ami.amazon2.id
+
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+    instance_metadata_tags      = "enabled"
+  }
 
   block_device_mappings {
     device_name = "/dev/xvda"
