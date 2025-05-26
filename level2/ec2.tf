@@ -49,7 +49,7 @@ EOF
     device_name = "/dev/xvda"
     ebs {
       delete_on_termination = true
-      volume_size           = 10
+      volume_size           = 30
       volume_type           = "gp3"
     }
   }
@@ -83,7 +83,7 @@ resource "aws_launch_template" "bastion_nodes" {
     device_name = "/dev/xvda"
     ebs {
       delete_on_termination = true
-      volume_size           = 10
+      volume_size           = 30
       volume_type           = "gp3"
     }
   }
