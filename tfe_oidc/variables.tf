@@ -15,5 +15,5 @@ variable "workspace_name" {
 
 variable "audience" {
   description = "the name of the audience used by terraform cloud"
-  default = "aws.workload.identity"
+  default     = "aws.workload.identity"
 }

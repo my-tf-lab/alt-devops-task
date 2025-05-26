@@ -3,12 +3,12 @@ data "aws_ami" "amazon2" {
   most_recent = true
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["amzn2-ami-*-hvm-*-x86_64-gp2"]
   }
 
   filter {
-    name = "architecture"
+    name   = "architecture"
     values = ["x86_64"]
   }
 
@@ -27,8 +27,8 @@ resource "aws_launch_template" "worker_nodes" {
   key_name      = local.node_name
   description   = "Alti DevOps task launch template"
   instance_type = "t3.micro"
-  image_id      =  data.aws_ami.amazon2.id
-  user_data   = base64encode(<<-EOF
+  image_id      = data.aws_ami.amazon2.id
+  user_data = base64encode(<<-EOF
   #!/bin/bash
   yum update -y
   amazon-linux-extras enable nginx1
@@ -53,7 +53,7 @@ EOF
       volume_type           = "gp3"
     }
   }
-  
+
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [data.aws_security_group.app.id]
@@ -70,7 +70,7 @@ resource "aws_launch_template" "bastion_nodes" {
   key_name      = local.node_name
   description   = "Alti DevOps task bastion launch template"
   instance_type = "t3.micro"
-  image_id      =  data.aws_ami.amazon2.id
+  image_id      = data.aws_ami.amazon2.id
 
   metadata_options {
     http_endpoint               = "enabled"
@@ -87,7 +87,7 @@ resource "aws_launch_template" "bastion_nodes" {
       volume_type           = "gp3"
     }
   }
-  
+
   network_interfaces {
     associate_public_ip_address = true
     security_groups             = [data.aws_security_group.bastion.id]

@@ -1,3 +1,3 @@
-env             = "dev"
-env_code        = "dev-use1"
-region          = "us-east-1"
+env      = "dev"
+env_code = "dev-use1"
+region   = "us-east-1"

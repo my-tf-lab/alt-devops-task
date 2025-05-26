@@ -1,8 +1,8 @@
 terraform {
-    backend "s3" {
-    region   = "us-east-1"
-    bucket   = "azarov-sso-tf-state-2"
-    key      = "oidc2/terraform.tfstate"
+  backend "s3" {
+    region  = "us-east-1"
+    bucket  = "azarov-sso-tf-state-2"
+    key     = "oidc2/terraform.tfstate"
     profile = "azarov"
 
   }

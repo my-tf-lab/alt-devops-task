@@ -5,7 +5,7 @@ resource "aws_networkfirewall_rule_group" "allow_https_secureweb" {
   capacity = 100
   type     = "STATEFUL"
 
-rule_group {
+  rule_group {
     rules_source {
       rules_source_list {
         generated_rules_type = "ALLOWLIST"

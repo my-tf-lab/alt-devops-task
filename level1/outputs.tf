@@ -2,9 +2,9 @@ output "major_blocks" {
   value = local.major_blocks
 }
 
- output "public_subnet_cidrs" {
-   value = local.public_subnet_cidrs
- }
+output "public_subnet_cidrs" {
+  value = local.public_subnet_cidrs
+}
 
 output "private_subnet_cidrs" {
   value = local.private_subnet_cidrs
