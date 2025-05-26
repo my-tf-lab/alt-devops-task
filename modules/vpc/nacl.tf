@@ -64,7 +64,18 @@ resource "aws_network_acl_rule" "private_in_ssh" {
   protocol       = "6"
   rule_action    = "allow"
   egress         = false
-  cidr_block     = aws_subnet.public["${var.bastion_az}"].cidr_block
+  cidr_block     = var.main_vpc_cidr
+  from_port      = 22
+  to_port        = 22
+}
+
+resource "aws_network_acl_rule" "private_out_ssh" {
+  network_acl_id = aws_network_acl.private.id
+  rule_number    = 110
+  protocol       = "6"
+  rule_action    = "allow"
+  egress         = true
+  cidr_block     = var.main_vpc_cidr
   from_port      = 22
   to_port        = 22
 }
@@ -153,6 +164,39 @@ resource "aws_network_acl_rule" "public_in_ssh_from_home" {
   rule_action    = "allow"
   egress         = false
   cidr_block     = var.home_ip_cidr
+  from_port      = 22
+  to_port        = 22
+}
+
+resource "aws_network_acl_rule" "public_in_ssh_from_vpc" {
+  network_acl_id = aws_network_acl.public.id
+  rule_number    = 201
+  protocol       = "6"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.main_vpc_cidr
+  from_port      = 22
+  to_port        = 22
+}
+
+resource "aws_network_acl_rule" "public_in_epemeral_from_vpc" {
+  network_acl_id = aws_network_acl.public.id
+  rule_number    = 202
+  protocol       = "6"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block     = var.main_vpc_cidr
+  from_port      = 1024
+  to_port        = 65535
+}
+
+resource "aws_network_acl_rule" "public_out_ssh_from_vpc" {
+  network_acl_id = aws_network_acl.public.id
+  rule_number    = 203
+  protocol       = "6"
+  rule_action    = "allow"
+  egress         = true
+  cidr_block     = "0.0.0.0/0"
   from_port      = 22
   to_port        = 22
 }

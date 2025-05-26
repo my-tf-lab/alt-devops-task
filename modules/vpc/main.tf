@@ -32,9 +32,10 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
   for_each = { for i, cidr in var.private_subnet_cidrs : i => cidr }
 
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = each.value
-  availability_zone = data.aws_availability_zones.available.names[tonumber(each.key) % length(data.aws_availability_zones.available.names)]
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = each.value
+  availability_zone       = data.aws_availability_zones.available.names[tonumber(each.key) % length(data.aws_availability_zones.available.names)]
+  map_public_ip_on_launch = false
 
   tags = merge({
     "Name" = "private-${var.vpc_name}-${each.key}",
