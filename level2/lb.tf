@@ -58,12 +58,12 @@ resource "aws_lb_target_group" "nlb_tg_to_alb" {
 
 resource "aws_lb_target_group_attachment" "attach_alb_to_nlb" {
   target_group_arn = aws_lb_target_group.nlb_tg_to_alb.arn
-  target_id        = aws_lb.internal_alb.arn
+  target_id        = aws_lb.internal.arn
   port             = 80
 }
 
 resource "aws_lb_listener" "nlb_listener" {
-  load_balancer_arn = aws_lb.public_nlb.arn
+  load_balancer_arn = aws_lb.public.arn
   port              = 80
   protocol          = "TCP"
 
