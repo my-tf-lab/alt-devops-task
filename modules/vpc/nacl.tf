@@ -39,6 +39,18 @@ resource "aws_network_acl_rule" "public_out_ephemeral" {
   to_port        = 65535
 }
 
+resource "aws_network_acl_rule" "public_out_http" {
+  network_acl_id = aws_network_acl.public.id
+  rule_number    = 122
+  protocol       = "6"
+  rule_action    = "allow"
+  egress         = true
+  cidr_block     = var.main_vpc_cidr
+  from_port      = 80
+  to_port        = 80
+}
+
+
 resource "aws_network_acl" "private" {
   vpc_id = aws_vpc.main.id
 
@@ -86,7 +98,7 @@ resource "aws_network_acl_rule" "private_out_ephemeral" {
   protocol       = "6"
   rule_action    = "allow"
   egress         = true
-  cidr_block     = var.main_vpc_cidr
+  cidr_block     = "0.0.0.0/0"
   from_port      = 1024
   to_port        = 65535
 }
