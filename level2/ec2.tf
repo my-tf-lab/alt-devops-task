@@ -28,13 +28,13 @@ resource "aws_launch_template" "worker_nodes" {
   description   = "Alti DevOps task launch template"
   instance_type = "t3.micro"
   image_id      = data.aws_ami.amazon2.id
+
   user_data = base64encode(<<-EOF
-  #!/bin/bash
-  yum update -y
-  amazon-linux-extras enable nginx1
-  yum install -y nginx
-  systemctl enable nginx
-  systemctl start nginx
+    #!/bin/bash
+    exec > /var/log/user-data.log 2>&1
+    set -ex
+    cd /home/ec2-user
+    nohup python3 -m http.server 80 &
 EOF
   )
 
