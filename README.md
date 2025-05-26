@@ -1,7 +1,9 @@
 # alt-devops-task
-Devops Task 00000010
 
 [![Checkov PCI DSS Compliance Scan](https://github.com/my-tf-lab/alt-devops-task/actions/workflows/checkov-dss.yaml/badge.svg)](https://github.com/my-tf-lab/alt-devops-task/actions/workflows/checkov-dss.yaml)
+
+Devops Task 00000010
+
 
 ## Context
 There is an environment that was created manually, which needs to undergo a PCI DSS audit.
@@ -31,12 +33,13 @@ For the network design, we need to plan the IP address space in advance. Taking 
 
         3 firewall subnets → /28 (3×16 IPs)
 
-Application will be accessed behind ALB chain: Public ALB pointing to Internal ALB. Outgress will be controlled by AWS Network GS and NAT GW.
+Application will be accessed behind ALB chain: Public ALB pointing to Internal ALB. Outgress will be controlled by AWS Network Firewall and NAT GW.
 
 The entire solution must be implemented as code using Terraform.
 
 Reference Solution(Diagram 2):
-![image](https://github.com/user-attachments/assets/44a74a5a-0733-4849-9426-550f0193f920)
+![image](https://github.com/user-attachments/assets/96ae4fb9-06e9-44bb-b2e9-25ec4fa448c8)
+
 
 
 ## Business Drivers
@@ -49,5 +52,5 @@ Please ignore `tfe_oidc` and `workspaces` folders it is a refined accelerator fr
 
 #### Workspaces:
 
-- level1 - network infra 
+- level1 - Network infra. AWS Firewall and NAT GW controlled by flags to controll costs.
 - level2 - compute infra and db(for simplicity)
