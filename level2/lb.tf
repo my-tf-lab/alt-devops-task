@@ -45,6 +45,7 @@ resource "aws_lb" "public" {
   internal           = false
   load_balancer_type = "network"
   subnets            = data.aws_subnets.public.ids
+  security_groups    = [data.aws_security_group.public_alb.id]
   enable_deletion_protection = false
 }
 
