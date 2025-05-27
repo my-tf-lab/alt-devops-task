@@ -153,7 +153,7 @@ resource "aws_network_acl_rule" "private_in_http" {
   protocol       = "6" # TCP
   rule_action    = "allow"
   egress         = false
-  cidr_block     = var.main_vpc_cidr
+  cidr_block     = "0.0.0.0/0"
   from_port      = 80
   to_port        = 80
 }
