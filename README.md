@@ -183,3 +183,17 @@ For testing purposes i use simple python http server on port 80: https://github.
 Its alive!
 
 3. Test that secureweb.com is avalible from private network:
+
+
+
+PS. Before run local states like `tf-oidc, workspaces` you need to define several env variables:
+
+```
+export TF_VAR_tfe_aws_role="arn:aws:iam::xxxxxxx:role/terraform-cloud-oidc-access-deployment-role"
+export TF_VAR_hcp_client_id=""
+export TF_VAR_hcp_client_secret=""
+export TF_VAR_tfe_token=""
+export TF_VAR_oauth_token_id=""
+export TF_VAR_rds_username=""
+export TF_VAR_rds_password=""
+```
